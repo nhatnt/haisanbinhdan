@@ -10,7 +10,7 @@ import { Province } from './model/province';
 export class SearchService {
 
   constructor(private httpClient: HttpClient) { }
-  loadRegion(): Observable<Province[]>  {
-    return this.httpClient.get<Province[]>(Constants.CORS + Constants.REGION_URL);
+  loadRegion(): Observable<any[]>  {
+    return this.httpClient.get<any[]>(Constants.CORS + Constants.REGION_URL);
   }
 }

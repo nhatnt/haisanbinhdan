@@ -13,6 +13,8 @@ import { AppErrorHandler } from './app-error-handler';
 import { NavComponent } from './nav/nav.component';
 import { SearchComponent } from './search/search.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { from } from 'rxjs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,9 +30,10 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    AngularFontAwesomeModule
   ],
-  providers: [{provide: ErrorHandler, useClass: AppErrorHandler}],
+  providers: [{ provide: ErrorHandler, useClass: AppErrorHandler }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,50 @@
-<div class="btn-group" dropdown>
-    <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-        aria-controls="dropdown-basic">
-        Toàn quốc <span class="caret"></span>
-    </button>
-    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-        <li role="menuitem" *ngFor="let key of regions[key]"><a class="dropdown-item">{{obj.name}}</a></li>
-    </ul>
+<!-- <div class="row"> -->
+<!-- <div class="col-md-2" style="position: absolute" [style.display]="showArea ? 'block': 'none'">
+        <select *ngIf="areas">
+            <option [value]="provinceId">{{provinceName}}</option>
+            <option value="-1">Tất cả</option>
+            <option [value]="area.id" *ngFor="let area of areas">
+                {{area.value}}
+            </option>
+        </select>
+    </div> -->
+<!-- <div class="col-md-2" style="position: absolute" [style.display]="!showArea ? 'block': 'none'">
+        <select *ngIf="provinces" (change)="loadArea($event);">
+            <option value="-1">Toàn Quốc</option>
+            <option [value]="province.id" *ngFor="let province of provinces">
+                {{province.value}}
+            </option>
+        </select>
+    </div> -->
+<!-- </div> -->
+<div style="margin-left: 20px">
+    <div class="btn-group" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-default dropdown-toggle"
+            aria-controls="dropdown-basic">
+            Toàn quốc <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            <li role="menuitem" *ngFor="let province of provinces">
+                <div style="height: 40px;width: 330px;border: 1px solid #cacaca; ">
+                    <a class="dropdown-item"><span>{{province.value}}</span>
+                        <i class="fa fa-angle-right arrow"></i></a>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="btn-group" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-default dropdown-toggle"
+            aria-controls="dropdown-basic">
+            Tất cả <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            <li role="menuitem" *ngFor="let area of areas" style="margin-left: 10px" (click)="loadArea($event);">
+                <div style="height: 40px;width: 330px;border: 1px solid #cacaca; border-radius: 0px;">
+                    <a class="dropdown-item"><span> {{area.value}}</span></a>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
