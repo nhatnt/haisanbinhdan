@@ -1,0 +1,19 @@
+.arrow {
+    position: absolute;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+}
+
+.menu {
+    cursor: pointer;
+    width: 330px;
+    height: 500px;
+    overflow-y: auto;
+}
+
+.menu-width {
+    height: 40px;
+    width: 330px;
+}

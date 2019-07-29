@@ -13,6 +13,7 @@ import { AppErrorHandler } from './app-error-handler';
 import { NavComponent } from './nav/nav.component';
 import { SearchComponent } from './search/search.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { from } from 'rxjs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     HttpClientModule,
     BsDropdownModule.forRoot()
   ],
-  providers: [{provide: ErrorHandler, useClass: AppErrorHandler}],
+  providers: [{ provide: ErrorHandler, useClass: AppErrorHandler }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
