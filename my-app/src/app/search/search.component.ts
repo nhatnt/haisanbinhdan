@@ -130,4 +130,5 @@ export class SearchComponent implements OnInit {
   showTextAll() {
     this.provinceName = "Toàn quốc";
   }
+  
 }
