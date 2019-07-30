@@ -17,13 +17,21 @@ export class SearchComponent implements OnInit {
   listProvinces = [];
   provinces = [];
   areas = [];
+  wards = [];
   provinceName: String;
   provinceId: Number;
+
+  showProvince = true;
   showArea = false;
+  showWard = false;
+
   mapProvince = new Map();
 
   areaName: String;
   areaId: Number;
+
+  wardName: String;
+  wardId: Number;
 
   constructor(private searchService: SearchService) { }
 
@@ -31,7 +39,8 @@ export class SearchComponent implements OnInit {
     this.loadRegions();
   }
 
-  loadRegions(): void {
+  //load danh sach tinh/thanh pho
+  loadRegions() {
     this.provinceName = "Toàn quốc";
     this.searchService.loadRegion().subscribe((response) => {
       this.data = Object.entries(response);
@@ -51,15 +60,29 @@ export class SearchComponent implements OnInit {
 
   backToProvince() {
     this.showArea = false;
+    this.showProvince = true;
+    this.showWard = false;
+
     $(document).ready(function () {
       $('#btnProvince').dropdown('show');
-      $('#btnArea').dropdown('hide');
     })
   }
 
+  backToArea() {
+    this.showArea = true;
+    this.showProvince = false;
+    this.showWard = false;
+
+    $(document).ready(function () {
+      $('#btnArea').dropdown('show');
+    })
+  }
+
+  // load danh sach quan/huyen
   loadAreaByName(province: any) {
     this.areaName = province.value;
     this.showArea = true;
+    this.showProvince = false;
     this.areas = [];
     this.provinceName = province.value;
     this.provinceId = province.id;
@@ -72,7 +95,6 @@ export class SearchComponent implements OnInit {
     }
 
     $(document).ready(function () {
-      $('#btnProvince').dropdown('hide');
       $('#btnArea').dropdown('show');
     })
 
@@ -82,9 +104,31 @@ export class SearchComponent implements OnInit {
     this.areaName = area.value;
     this.areaId = area.id;
     console.log(this.areaId + '-' + this.areaName);
+    this.getWard(area.id.toString());
   }
 
-  showTextAll(){
+  saveWard(ward: any) {
+    this.wardName = ward.name;
+    this.wardId = ward.id;
+    console.log('area:' + this.areaName  + '-'+ this.areaId+ 'ward:' + this.wardName + '-' + this.wardId);
+  }
+
+  getWard(wardId: string) {
+    this.searchService.loadWard(wardId).subscribe((response: any) => {
+      this.wards = response.wards;
+      console.log(response);
+      this.showArea = false;
+      this.showProvince = false;
+      this.showWard = true;
+      $(document).ready(function () {
+        $('#btnWard').dropdown('show');
+      });
+      this.wardName = this.areaName;
+    });
+  }
+
+  showTextAll() {
     this.provinceName = "Toàn quốc";
   }
+  
 }
