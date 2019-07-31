@@ -18,6 +18,7 @@ export class SearchComponent implements OnInit {
   provinces = [];
   areas = [];
   wards = [];
+  listNews = [];
   provinceName: String;
   provinceId: Number;
 
@@ -110,7 +111,8 @@ export class SearchComponent implements OnInit {
   saveWard(ward: any) {
     this.wardName = ward.name;
     this.wardId = ward.id;
-    console.log('area:' + this.areaName  + '-'+ this.areaId+ 'ward:' + this.wardName + '-' + this.wardId);
+    console.log('area:' + this.areaName + '-' + this.areaId + 'ward:' + this.wardName + '-' + this.wardId);
+    this.getListNewsByWard(this.provinceId.toString(),this.areaId.toString(),this.wardId.toString());
   }
 
   getWard(wardId: string) {
@@ -130,5 +132,20 @@ export class SearchComponent implements OnInit {
   showTextAll() {
     this.provinceName = "Toàn quốc";
   }
-  
+
+
+  getListNewsByWard( provinceId: string,areaId: string,wardId: string) {
+    this.searchService.loadListByWard(provinceId, areaId, wardId).subscribe((response: any) => {
+      this.listNews = response.ads;
+    });
+  }
+
+  getAllNewsOfProvince(){
+    this.getListNewsByWard(this.provinceId.toString(),'','');
+  }
+
+  getAllNewsOfArea(){
+    this.getListNewsByWard(this.provinceId.toString(),this.areaId.toString(),'');
+  }
+
 }

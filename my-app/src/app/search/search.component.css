@@ -17,3 +17,27 @@
     height: 40px;
     width: 330px;
 }
+
+.image-right{
+    width: 133px;
+    height: 100px;
+    float: left;
+}
+.content-right{
+   margin-left: 153px;
+  
+}
+
+.list-content{
+    margin-top: 50px;
+}
+
+.price{
+    color: red;
+    font-weight: bold;
+}
+
+.time{
+    bottom: 5px;
+    position: absolute;
+}

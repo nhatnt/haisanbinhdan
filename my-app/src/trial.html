@@ -35,7 +35,7 @@
         function initMap() {
             var mapProp = {
                 center: new google.maps.LatLng(19.0334391, 105.4440063),
-                zoom: 9,
+                zoom: 11,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
@@ -60,18 +60,29 @@
                     map: map
                 });
                 var location = event.latLng;
-                var point = [location.lat, location.lng];
-                alert (isPointInPoly(point));
+                var point = [location.lat(), location.lng()];
+                console.log(point);
+                alert(coordinateInRegion(point));
             });
         }
-        
-        function isPointInPoly(pt) {
-            var poly = [[19.0334391, 105.4440063], [19.0550811, 105.5517453], [18.9940011, 105.5575493], [19.0223421, 105.2664333], [19.0334391, 105.4440063]];
-            for (var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
-                ((poly[i][1] <= pt[1] && pt[1] < poly[j][1]) || (poly[j][1] <= pt[1] && pt[1] < poly[i].y))
-                    && (pt[0] < (poly[j][0] - poly[i][0]) * (pt[1] - poly[i][1]) / (poly[j][1] - poly[i][1]) + poly[i][0])
-                    && (c = !c);
-            return c;
+
+        function coordinateInRegion() {
+            var pt = [18.859922, 105.373535];
+            var isInside = false;
+            //create an array of coordinates from the region boundary list
+            var verts = [[19.0334391, 105.4440063], [19.0550811, 105.5517453], [18.9940011, 105.5575493], [19.0223421, 105.2664333], [19.0334391, 105.4440063]];
+            var sides = verts.length;
+            for (var i = 0, j = sides - 1; i < sides; j = i++) {
+                //verifying if your coordinate is inside your region
+                if (
+                    (((verts[i][1] <= pt[1]) && (pt[1] < verts[j][1])) || ((verts[j][1] <= pt[1]) && (pt[1] < verts[i][1])))
+                    &&
+                    (pt[0] < (verts[j][0] - verts[i][0]) * (pt[1] - verts[i][1]) / (verts[j][1] - verts[i][1]) + verts[i][0])
+                ) {
+                    isInside = !isInside;
+                }
+            }
+            return isInside;
         }
 
     </script>

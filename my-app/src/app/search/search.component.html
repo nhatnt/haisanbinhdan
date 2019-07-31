@@ -1,69 +1,93 @@
-<div style="margin-left: 20px">
-    <div class="btn-group" style="position: absolute;width: 200px" [style.display]="showProvince ? 'block': 'none'">
-        <button id="btnProvince" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{provinceName}}
-        </button>
-        <ul class="dropdown-menu menu">
-            <li (click)="showTextAll();">
-                <a class="dropdown-item"><span>Toàn quốc</span>
-                    <div class="dropdown-divider"></div>
-                </a>
-            </li>
-            <li *ngFor="let province of provinces" (click)="loadAreaByName(province);">
-                <a class="dropdown-item"><span>{{province.value}}</span>
-                    <i class="fa fa-angle-right arrow"></i>
-                    <div class="dropdown-divider"></div>
-                </a>
-            </li>
-        </ul>
+<div class="container">
+    <div>
+        <div class="btn-group" style="width: 200px" [style.display]="showProvince ? 'block': 'none'">
+            <button id="btnProvince" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                {{provinceName}}
+            </button>
+            <ul class="dropdown-menu menu">
+                <li (click)="showTextAll();">
+                    <a class="dropdown-item"><span>Toàn quốc</span>
+                        <div class="dropdown-divider"></div>
+                    </a>
+                </li>
+                <li *ngFor="let province of provinces" (click)="loadAreaByName(province);">
+                    <a class="dropdown-item"><span>{{province.value}}</span>
+                        <i class="fa fa-angle-right arrow"></i>
+                        <div class="dropdown-divider"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- quan/huyen -->
+        <div class="btn-group" style="width: 200px" [style.display]="showArea ? 'block': 'none'">
+            <button id="btnArea" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                {{areaName}}
+            </button>
+            <ul class="dropdown-menu menu" *ngIf="areas">
+                <li (click)="backToProvince()">
+                    <a class="dropdown-item"><i class="fa fa-arrow-left"></i><span>
+                            {{provinceName}}</span>
+                        <div class="dropdown-divider"></div>
+                    </a>
+                </li>
+                <li (click) = "getAllNewsOfProvince()">
+                    <a class="dropdown-item"><span>Tất cả</span>
+                        <div class="dropdown-divider"></div>
+                    </a>
+                </li>
+                <li *ngFor="let area of areas" (click)="saveCurrentArea(area)">
+                    <a class="dropdown-item"><span>{{area.value}}</span>
+                        <div class="dropdown-divider"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Phuong/xa -->
+        <div class="btn-group" style="width: 200px" [style.display]="showWard ? 'block': 'none'">
+            <button id="btnWard" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                {{wardName}}
+            </button>
+            <ul class="dropdown-menu menu" *ngIf="areas">
+                <li (click)="backToArea()">
+                    <a class="dropdown-item"><i class="fa fa-arrow-left"></i><span>
+                            {{areaName}}</span>
+                        <div class="dropdown-divider"></div>
+                    </a>
+                </li>
+                <li (click) = "getAllNewsOfArea()"> 
+                    <a class="dropdown-item"><span>Tất cả</span>
+                        <div class="dropdown-divider"></div>
+                    </a>
+                </li>
+                <li *ngFor="let ward of wards" (click)="saveWard(ward)">
+                    <a class="dropdown-item"><span>{{ward.name}}</span>
+                        <div class="dropdown-divider"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <!-- quan/huyen -->
-    <div class="btn-group" style="position: absolute; width: 200px" [style.display]="showArea ? 'block': 'none'">
-        <button id="btnArea" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{areaName}}  
-        </button>
-        <ul class="dropdown-menu menu" *ngIf="areas">
-            <li (click)="backToProvince()">
-                <a class="dropdown-item"><i class="fa fa-arrow-left"></i><span>
-                        {{provinceName}}</span>
-                    <div class="dropdown-divider"></div>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item"><span>Tất cả</span>
-                    <div class="dropdown-divider"></div>
-                </a>
-            </li>
-            <li *ngFor="let area of areas" (click)="saveCurrentArea(area)">
-                <a class="dropdown-item"><span>{{area.value}}</span>
-                    <div class="dropdown-divider"></div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <!-- Phuong/xa -->
-    <div class="btn-group" style="position: absolute;width: 200px" [style.display]="showWard ? 'block': 'none'">
-        <button id="btnWard" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{wardName}}  
-        </button>
-        <ul class="dropdown-menu menu" *ngIf="areas">
-            <li (click)="backToArea()">
-                <a class="dropdown-item"><i class="fa fa-arrow-left"></i><span>
-                        {{areaName}}</span>
-                    <div class="dropdown-divider"></div>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item"><span>Tất cả</span>
-                    <div class="dropdown-divider"></div>
-                </a>
-            </li>
-            <li *ngFor="let ward of wards" (click) = "saveWard(ward)">
-                <a class="dropdown-item"><span>{{ward.name}}</span>
-                    <div class="dropdown-divider"></div>
-                </a>
+
+    <div style="margin-top: 10px">
+        <ul class="list-group">
+            <li *ngFor="let news of listNews" class="list-group-item">
+                <div>
+                    <div class="image-right">
+                        <img src={{news.image}} style="width: 133px; height: 100px">
+                    </div>
+                    
+                    <div class="content-right">
+                        <div><span>{{news.subject}}</span></div>
+                        <!-- <div><span>{{news.body}}</span></div> -->
+                        <div><span class="price">{{news.price_string}}</span></div>
+                        <div><span class="time">{{news.date}}</span></div>
+                    </div>
+                </div>
+
             </li>
         </ul>
     </div>
 </div>
-

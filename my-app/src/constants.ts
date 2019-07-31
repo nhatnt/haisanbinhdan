@@ -7,4 +7,8 @@ export class Constants{
     // lay danh sach phuong
     public static WARD_URL = "https://gateway.chotot.com/v2/public/chapy-pro/wards";
 
+
+    // lay danh sach tin
+    public static LIST_URL = "https://gateway.chotot.com/v1/public/ad-listing";
+
 }
